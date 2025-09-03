@@ -1,1 +1,7 @@
-# Dylan_Isiah_Aidan_Jackson_SeniorProject
+# Senior Project – Group 17
+
+## Group Members
+- Dylan Suzuki  
+- Isaiah Pajarillo  
+- Aidan Hodges  
+- Jackson Muller  
