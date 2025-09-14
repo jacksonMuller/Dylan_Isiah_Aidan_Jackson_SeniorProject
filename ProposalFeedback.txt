@@ -1,0 +1,43 @@
+CMSI 4071 Fall 2025
+Project Proposal Feedback
+Project: Poker Face
+=========================
+
+Proposal Document [3 points]:
+-----------------------------
+Well done on the proposal document!  This is a very interesting project and
+will be quite a challenge!  I'm impressed by what you are taking on and I'm
+glad to see a project that integrates hardware with the software since there
+are engineering components of both that will go into this system.  You have
+defined the focus of the project well, even if you haven't defined the task
+the arm will accomplish, and there are MANY uses for this system.
+
+Your justification section is very good, too.  You have situated the project
+well in its context and have described the high points of your involvement
+with the technologies you'll be using.  Knowing that there is a distinct
+learning curve and identifying the topics you'll be learning as you go is
+great information as well as demonstrating the thought you are putting into
+the effort.
+
+The only thing I would change is, you don't need to include the assignment
+statements before the two sections.  The project documentation is supposed
+to be similar to what you would do in an industry document, so that text
+would not appear.  Otherwise, good work!
+
+
+Proposal Presentation [2 points]:
+---------------------------------
+Your presentation was very good, met all the requirements as listed, and
+provided enough detail so the audience saw interested without having so
+much text that they couldn't read it all before the next slide appeared.
+I enjoyed the presentation and you answered questions well.  I like your
+graphics, even though none of them is really about robotics or computer
+vision ~ they are interesting and engaging, though!
+
+Overall, very good!
+
+Summary:
+--------
+Nice job overall!  Keep up the good work.
+
+5 out of 5 which is an A-plus on this deliverable.
