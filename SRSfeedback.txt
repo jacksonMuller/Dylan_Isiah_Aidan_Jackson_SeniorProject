@@ -1,0 +1,113 @@
+
+Documentation Feedback ~ Deliverable #2
+Software Requirements Specification
+Initial Development Schedule
+CMSI 4071 Fall 2025
+=======================================
+
+COMPONENT BREAKDOWN:
+====================
+Nice work on the introduction section.  The text is clear and engages the
+reader.  The one thing to try to do is use the present tense throughout.
+Rather than "The system will implement a pick-and-place...." you should
+say "The system implements a pick-and-place....."  since your project's
+proposal has already been accepted as such at this point in the process.
+
+FUNCTIONAL REQUIREMENTS:
+========================
+Strengths:
+   The document clearly identifies the system overview and breaks down
+      subsystems (App Subsystem and Backend Subsystem).
+   App Subsystem requirements include:
+      Multiple pages (map view, list view, account page).
+      Map markers with filters, average beer prices, and deal indicators.
+      Sorting and filtering options for bars based on price, distance,
+         and ratings.
+      Detailed bar view with ratings, drink list, and hyperlinks.
+   Backend Subsystem requirements include:
+      Firebase integration for authentication, data storage, and
+         callable Cloud Functions.
+      User authentication and access control.
+      Price update submission and approval workflow.
+      Firestore collections with defined fields and security rules.
+
+Gaps / Suggestions:
+   No explicit mention of error handling (e.g., failed submissions, invalid
+      data, network errors).
+   User experience and accessibility: No requirements for color contrast,
+      screen reader support, or mobile responsiveness beyond iOS
+      compatibility.
+   Notifications and alerts: Missing functional requirements for notifying
+      users about approved price updates or new deals.
+   Offline mode: No specification for app behavior without connectivity.
+   Scalability: No requirements for handling large datasets or concurrent users.
+
+PERFORMANCE REQUIREMENTS:
+=========================
+Strengths:
+   The document includes a qualification matrix with verification methods
+      (demonstration, inspection, test) for UI and backend features.
+   Basic operational expectations are implied (navigation between pages,
+      filter responsiveness).
+
+Gaps / Suggestions:
+   Quantifiable metrics missing:
+      No response time targets for UI updates, map loading, or filter
+         application.
+      No limits for backend operations (e.g., price update processing time).
+   Stress/load testing: No requirements for performance under high traffic
+      or large data volumes.
+   Network variability: No mention of latency handling or degraded
+      performance modes.
+   Recovery performance: Missing time limits for restoring state after
+      crashes or interruptions.
+
+ENVIRONMENT REQUIREMENTS:
+=========================
+Strengths:
+   Specifies execution environment: iPhone or iOS-compatible device
+      and iOS software.
+   Mentions Firebase services for backend operations.
+
+Gaps / Suggestions:
+   Development environment: No details on IDEs, version control, or
+      build tools.
+   Testing environment: No requirements for automated testing tools
+      or QA processes.
+   Security environment: Mentions Firestore rules but lacks details on
+      encryption, HTTPS/TLS enforcement.
+   Monitoring and logging: No requirements for analytics or error tracking.
+   Future scalability: No guidance for supporting Android or multi-platform
+      deployment.
+
+
+OVERALL ASSESSMENT:
+   Category                          Points
+   Component Breakdown                 1/1
+   Functional Requirements             4/4
+   Performance Requirements            2/2
+   Environment Requirements            1/1
+                                     =====
+   Subtotal                            8/8
+   Preliminary Schedule                2/2   The Gantt chart seems OK for
+                                             this level, but you'll need
+                                             more detail in next iteration
+                                             I had to find it in the SDP...
+   ------------------------------------------------------
+   Total Percentage:   10/10 = 100% which is an A-plus
+
+
+Overall Assessment
+   Functional requirements: Strong coverage of UI and backend logic, but
+      missing accessibility, error handling, notifications, and
+      offline considerations.
+   Performance requirements: Verification methods exist, but lacks
+      measurable benchmarks and resilience metrics.
+   Environmental requirements: Adequate for execution basics, but missing
+      development, testing, security, and scalability details.
+
+
+Make sure you incorporate all the suggestions into the document by the end
+of the semester for full credit on this deliverable.
+
+Very good job on this deliverable.

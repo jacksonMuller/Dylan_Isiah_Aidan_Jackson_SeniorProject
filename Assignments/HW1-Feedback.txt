@@ -1,0 +1,87 @@
+
+Essay Feedback
+Homework Assignment #1
+CMSI 4071 Fall 2025
+======================
+
+SUMMARY:
+The essay provides a clear and accurate summary of the ValuJet Flight 592
+crash, including the timeline, the technical cause (improperly stored
+oxygen generators), and the systemic failures that led to the disaster.
+
+The essay effectively explains the concept of a "system accident" and how
+the crash resulted from a chain of small, interconnected failures. It also
+highlights the roles of ValuJet, SabreTech, and the FAA.
+
+The essay includes specific and relevant details, such as the mislabeling
+of hazardous materials, lack of safety caps, and the FAA's delayed response.
+
+The writing is clear, well-organized, and logically structured. The
+narrative flows smoothly from the incident to the broader systemic issues.
+
+The essay reflects on the broader implications of the crash, particularly
+the dangers of diffused responsibility, cost-cutting, and the
+normalization of deviance. It also critiques the capitalist pressures that
+deprioritize safety.
+
+Overall: The synopsis is comprehensive, well-supported, and critically
+engaged, effectively capturing the article’s key arguments and deeper
+insights.
+
+CRITICAL THINKING:
+The essay draws strong and relevant parallels between the ValuJet disaster
+and software engineering, especially in areas like system complexity,
+outsourcing, AI overreliance, and organizational responsibility.
+
+The essay insightfully connects the ValuJet case to software engineering
+challenges, such as minimal testing, rushed deployment, and the risks of
+overusing AI in development and hiring.
+
+The essay references key practices such as automated testing, peer reviews,
+documentation, and the importance of training and oversight. It also
+discusses the risks of relying on external libraries and cloud services
+without due diligence.
+
+The examples are grounded in real-world software development scenarios.
+The mention of the 2024 CrowdStrike crash adds a timely and relevant case
+study.
+
+The writing is articulate and logically structured. Each point is
+well-developed and transitions smoothly into the next. The tone is
+professional and reflective.
+
+Overall: The application to software engineering is thoughtful, technically
+grounded, and highly relevant, demonstrating a strong understanding of how
+systemic failures in aviation can inform better practices in software
+development.
+
+OVERALL ASSESSMENT:
+   Category                          Points
+   Summary of article                  25
+   Relation to S/W engineering         25
+   Thoughts/opinions presented         25
+   Spelling/Grammar                    25
+                                     -----
+   Subtotal                           100
+   ------------------------------------------------------
+   Total Percentage:   100 out of 100 which is an A-plus
+
+This essay is a well-structured and insightful analysis that effectively
+connects the ValuJet Flight 592 disaster to software engineering. It
+demonstrates a strong grasp of systemic risk, the importance of
+communication, documentation, and the dangers of prioritizing speed and
+cost over safety and quality.
+
+Strengths:
+Accurate and detailed summary of the article.
+Strong integration of theoretical and practical insights.
+Real-world application to software engineering, especially in AI,
+   testing, and outsourcing.
+Clear writing and logical structure.
+
+Suggestions for Improvement:
+A brief concluding paragraph summarizing the key takeaways from both
+   sections would enhance cohesion.
+Consider expanding on how teams can proactively build a culture that
+   resists the normalization of deviance.
+
