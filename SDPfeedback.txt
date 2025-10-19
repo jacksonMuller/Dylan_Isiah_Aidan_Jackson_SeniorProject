@@ -1,0 +1,94 @@
+
+Documentation Feedback ~ Deliverable #3
+Software Development Plan
+CMSI 4071 Fall 2025
+=======================================
+
+INTRODUCTION/DELIVERABLES SECTION:
+----------------------------------
+Strengths
+   Clear project scope: The introduction effectively describes the purpose
+      of the project - building a robotic arm that uses computer vision and
+      inverse kinematics.
+   Defined rationale: The educational and practical value of the project
+      is well-articulated.
+   Development activities listed: Hardware assembly, software development,
+      integration, and testing are clearly outlined.
+   Milestones included: Key weeks and deliverables are listed, aligning
+      with a structured development timeline.
+Suggestions
+   Clarify methodology: While the structure implies a waterfall approach,
+      explicitly stating that the project follows the waterfall model
+      would improve alignment with the assignment.
+   Include a brief summary of each development phase: This would help
+      reinforce the sequential nature of the waterfall model.
+
+
+PROJECT RESOURCES SECTION:
+----------------------------------
+4.2.1 Hardware Resources
+   Strengths
+      Detailed component list: Includes specific hardware
+         (e.g., Raspberry Pi, servos, webcam, 3D printer) with links
+         to sources.
+      Development and execution hardware separated: Differentiates between
+         development tools and execution components.
+   Suggestions
+      Summarize in a table: The list is comprehensive but could be more
+         readable if formatted consistently in a table.
+      Clarify quantities and ownership: Indicate how many of each item are
+         available and who is responsible for them.
+4.2.2 Software Resources
+   Strengths
+      Relevant tools listed: Python, OpenCV, NumPy, VSCode, and GitHub are
+         appropriate for the project’s needs.
+      Source code repository linked: Provides transparency and traceability.
+   Suggestions
+      Add version numbers: Specify versions for Python, OpenCV, and other
+         libraries for reproducibility.
+      Mention licensing or cost: Even if using open-source tools, noting
+         this shows awareness of project constraints.
+
+
+PROJECT ORGANIZATION SECTION:
+----------------------------------
+Strengths
+   Team members listed: Names and emails are provided.
+Suggestions
+   Define roles and responsibilities: All roles are currently marked as
+      "Undefined." Assign specific roles (e.g., Hardware Lead, Software
+      Lead, Integration Lead, Documentation Lead) to clarify ownership
+      and accountability.
+   Include communication plan: Describe how the team will coordinate
+      (e.g., weekly meetings, GitHub issues, shared documents).
+
+
+PROJECT SCHEDULE SECTION:
+----------------------------------
+Strengths
+   Chart referenced: A Lucidchart link is provided for the Gantt chart.
+Suggestions
+   Embed or attach the chart: Ensure the Gantt chart is included in the
+      final submission and is legible.  Having the chart as part of the
+      document is much easier for the reader.  Although generally it's
+      nice to have the chart as a link so that updates don't disturb
+      the document, in this case, because it's early days, having it
+      in the document is OK.
+   Highlight dependencies: Show how tasks depend on each other to
+      reflect the waterfall model.
+
+
+OVERALL ASSESSMENT:
+----------------------------------
+   Category                          Points
+   Project Deliverables                1
+   Project Resources                   1
+   Project Organization                1
+   Project Schedule                    2
+                                     =====
+   Subtotal                            5
+   ------------------------------------------------------
+   Total Percentage:   5/5 = 100% which is an A-plus
+
+
+Good effort on this document!
