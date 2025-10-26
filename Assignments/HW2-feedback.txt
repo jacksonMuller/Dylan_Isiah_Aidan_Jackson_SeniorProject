@@ -1,0 +1,35 @@
+
+
+HW 2 - Piloni & Miles Textbook
+CMSI 4071 Fall 2025
+
+Category        Weight     Earned
+===========    ========    ======
+Problem 1      [3 pts.]      3.0
+Problem 2      [4 pts.]      4.0
+Problem 3      [6 pts.]      6.0
+Problem 4      [9 pts.]      9.0
+Problem 5      [2 pts.]      2.0
+Problem 6      [7 pts.]      7.0
+Problem 7      [1 pt.]       1.0
+Problem 8      [3 pts.]      3.0
+Problem 9      [5 pts.]      5.0
+Problem 10     [4 pts.]      4.0
+
+      Subtotal [44 max]     44.0
+             Your Total     44.0 which is 100.00%
+
+         Letter grade   A-plus
+
+You demonstrate a strong understanding of Agile principles and software
+   development practices, with clear reasoning and practical examples.
+   Strengths include accurate definitions, thoughtful opinions on assumptions
+   and estimates, and well-articulated contrasts between Agile and Waterfall.
+   Areas for improvement include refining terminology for Agile phases,
+   explicitly connecting answers to Agile practices (e.g., planning poker,
+   INVEST criteria), and correcting the fill-in-the-blank error for Planning
+   Poker.  Adding references to common tools and best practices would further
+   enhance completeness.  Overall, this is a well-prepared and insightful
+   assignment with only some minor refinements suggested.
+
+nice work!
