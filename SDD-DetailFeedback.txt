@@ -1,0 +1,54 @@
+
+Documentation Feedback ~ Deliverable #4
+Software Design Document ~ Detailed Design
+CMSI 4071 Fall 2025
+==========================================
+
+DETAILED CSC AND CSU DESCRIPTIONS:
+   Not done, not in repository as separate document, not included
+      in submitted document.
+
+DETAILED CLASS DESCRIPTIONS:
+   Not done, not in repository as separate document, not included
+      in submitted document.
+
+
+DETAILED INTERFACE DESCRIPTIONS:
+   Not done, not in repository as separate document, not included
+      in submitted document.
+
+
+DETAILED DATA STRUCTURE DESCRIPTIONS:
+   Not done, not in repository as separate document, not included
+      in submitted document.
+
+
+DETAILED DESIGN DIAGRAMS:
+   Not done, not in repository as separate document, not included
+      in submitted document.
+
+
+DATABASE DESIGN AND DESCRIPTION:
+   Not done, not in repository as separate document, not included
+      in submitted document.
+
+
+
+----------------------------------------------
+OVERALL ASSESSMENT:
+   Category                          Points
+   CSC/CSU Descriptions:                0 of  2
+   Class Descriptions:                  0 of  3
+   Interface Descriptions:              0 of  3
+   Data structure Descriptions:         0 of  1
+   Design diagrams:                     0 of  4
+   Database design/descriptions:        0 of  2
+                                     ===========
+   Subtotal                             0 of 15
+   ------------------------------------------------------
+   Total Percentage:  0/15 = 0% which is not your best work, I'm sure...
+
+If you spend the time to make section 6.3 of the document, you'll pick up
+the points you missed.  Git 'er dunne by code freeze and you should be OK.
+
+

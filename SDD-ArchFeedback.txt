@@ -1,0 +1,137 @@
+
+Documentation Feedback ~ Deliverable #4
+Software Design Document ~ Architecture
+CMSI 4071 Fall 2025
+=======================================
+
+INTRODUCTION SECTION:
+   Strengths
+      The section is clearly labeled and transitions from
+         requirements to design
+      Provides a structured breakdown into subsections
+         (6.1, 6.2, etc.), which aligns with the rubric
+      Clearly describes the purpose of the system: a vision-guided robotic
+         arm integrating computer vision and inverse kinematics
+      Mentions key technologies (OpenCV, NumPy, Raspberry Pi, servos)
+         and overall workflow
+   Suggestions
+      Add a summary paragraph at the start of 6.0 explaining what the
+         architectural design covers (major subsystems, interactions,
+         diagrams)
+      Include a traceability note linking architectural decisions to
+         functional requirements in earlier sections
+      Add scope and constraints (e.g., single-arm system, limited object
+         types, indoor use)
+      Include non-goals (e.g., not designed for industrial-scale automation)
+      State design principles (e.g., modularity, real-time responsiveness,
+         low latency) to justify architectural choices
+
+
+   System objectives section
+      Strengths
+         Objectives are well-articulated: detect, identify, and move
+            objects with minimal user input
+         Links objectives to functional capabilities (object detection,
+            inverse kinematics, servo control)
+      Suggestions
+         Make objectives measurable (e.g., "detect objects within 100 ms
+            and position arm within 2 seconds")
+         Tie objectives to quality attributes (e.g., accuracy, reliability,
+            responsiveness)
+
+   Hardware, software, and human interfaces section
+      Strengths
+         Lists all hardware components: USB webcam, Raspberry Pi 4,
+            servo motors, motor control board, power supply,
+            and 3D-printed arm
+         Provides details like resolution (720p, 30 fps) and voltage (5 VDC)
+         Specifies programming language (Python) and libraries
+            (OpenCV, NumPy)
+         Mentions development environment (VS Code, GitHub)
+         Differentiates between developer interface (terminal commands) and
+            demonstration interface (visual observation)
+         Mentions OpenCV display window for feedback
+      Suggestions
+         Add minimum performance specs for Raspberry Pi and servos
+         Include communication protocols (I²C for motor control) here or
+            cross-reference later
+         Provide error handling considerations
+            (e.g., what happens if servo feedback fails)
+         Add version details for libraries and Python
+         Include API boundaries (e.g., OpenCV functions used for detection)
+         Document threading or concurrency model for
+            real-time vision and control
+         Add user interaction constraints (e.g., no direct joystick control)
+         Include UI diagrams or mockups for demonstration interface
+
+ARCHITECTURAL DESIGN SECTION:
+
+   Major softwre components section
+      Strengths
+         Lists five components: Vision, Kinematics, Control, Calibration,
+            and Main Coordinator
+         Provides brief descriptions of each component’s role
+      Suggestions
+         Add dependencies and data flow between components
+         Include error handling strategies
+            (e.g., fallback if calibration fails)
+         Provide traceability links to requirement IDs
+
+   Major software interactions section
+      Strengths
+         Describes interactions between
+            Vision -> Kinematics -> Control -> Hardware
+         Specifies data formats (arrays for coordinates and angles)
+            and protocol (I²C)
+         Mentions latency target (<3 ms per command)
+      Suggestions
+         Add sequence diagrams for these interactions
+            (currently only textual)
+         Include failure modes and recovery (e.g., lost servo signal)
+         Document security considerations (if remote debugging is allowed)
+
+   Architectural design diagrams section
+      Strengths
+         Includes diagrams: Swimlane, Use Case, and
+            Software Component Diagram
+         Visual representation of roles and flows improves clarity
+      Suggestions
+         Ensure diagrams have figure numbers, captions, and
+            cross-references in text
+         Add data flow annotations to diagrams to link them to
+            described interactions
+         Include UML compliance
+            (e.g., visibility markers, standardized notation)
+
+
+OVERALL ASSESSMENT:
+   Category                          Points
+   INTRODUCTION                         1
+   System objectives                    1
+   H/W, S/W, Human I/F                  1
+
+   ARCHITECTURAL DESIGN SECTION:
+   Major softwre components             1
+   Major software interactions          1
+   Architectural design diagrams        5
+
+                                     ======
+   Subtotal                            10
+   ------------------------------------------------------
+   Total Percentage:  10/10 = 100% which is an A-plus
+
+
+Overall Completeness Assessment
+   The architectural design section is well-structured and moderately
+      complete, covering objectives, hardware/software interfaces, major
+      components, and interactions. It demonstrates good alignment with
+      waterfall methodology and includes diagrams.
+   However, formalization and traceability need improvement:
+      Missing component-level diagrams with data flow annotations.
+      Limited discussion of non-functional requirements and error handling.
+      Diagrams lack labels and UML compliance.
+      Interaction descriptions need sequence diagrams and recovery strategies.
+   Overall Rating: Good (>80% complete) — Strong foundation with clear
+      descriptions and diagrams, but could use some  additional formal
+      details, traceability, and compliance refinements for full completeness
+      with industry standard rubric.

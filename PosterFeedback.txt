@@ -1,0 +1,15 @@
+Great work on the poster!
+
+I think I mentioned in class that you'll need to put "CMSI 4071" and "Spring 2025" on there somewhere.
+
+Do that and you'll be good to go.  Send a completed copy to Masao for printing.  His e-mail address is:
+
+     Masao.Kitamura@lmu.edu
+
+Make sure to put a copy into your repository as well.
+
+sorry, I forgot to mention that your poster needs to be a PDF file,
+   NOT a PNG file.  Also, double check the size to make sure it is
+   48 inches wide by 36 inches tall.
+
+THEN you can send it to Masao....
