@@ -4,4 +4,5 @@
 **Version:** 1.0  
 **Authors:** Aidan Hodges, Dylan Suzuki, Isaiah Pajarillo, Jackson Muller
 
-![ARM Control Manual](images/ARM Control Manual.png)
+![ARM Control Manual](Images/ARM%20Control%20Manual.png)
+
