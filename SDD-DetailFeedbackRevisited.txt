@@ -1,0 +1,107 @@
+
+Documentation Feedback ~ Deliverable #4
+Software Design Document ~ Detailed Design
+CMSI 4071 Fall 2025
+==========================================
+
+Overall Impression
+Section 6.3 is well-structured and includes class descriptions, interface
+details, data structures, and design diagrams.  It reflects an Agile-style
+implementation detail (Python modules, OpenCV, keyboard teleop) but also
+aligns with Waterfall expectations for detailed design.  However, some
+formal elements (traceability, diagrams, algorithm pseudo-code) are
+missing for full Waterfall compliance.
+
+DETAILED CSC AND CSU DESCRIPTIONS:
+   This section is subsumed by the following sections
+
+DETAILED CLASS DESCRIPTIONS:
+   Strengths:
+      Each class (e.g., VisionSystem, DetectedObject, ServoController,
+         KeyboardTeleop, PositionSequencer) includes:
+            Purpose
+            Key Responsibilities
+            Key Fields
+            Key Methods
+      Responsibilities are clearly tied to functional roles
+         (camera handling, object detection, servo control,
+         teleoperation).
+      Covers both perception and control CSCs, showing modular
+         decomposition.
+   Suggestions:
+      Add visibility and relationships
+         (public/private, inheritance, composition).
+      Include state diagrams or lifecycle notes for dynamic components
+         (e.g., VisionSystem main loop).
+      Explicitly link each class to requirement IDs for traceability.
+      Document error handling strategies (e.g., camera failure,
+         servo disconnect).
+      Provide algorithm pseudo-code for complex methods like getObjects()
+         and motion sequencing.
+
+DETAILED INTERFACE DESCRIPTIONS:
+   Strengths:
+      Interfaces between major components are described:
+         VisionSystem -> consumers (detections)
+         KeyboardTeleop -> ServoController (keypress-triggered joint offsets)
+         External assets (model files) are noted.
+   Suggestions:
+      Provide formal interface tables listing:
+         Method signatures
+         Input/output types
+         Error conditions
+      Include sequence diagrams for critical flows
+         (e.g., detection -> teleop -> servo command).
+      Document data transfer protocols (e.g., synchronous vs asynchronous,
+         message format).
+
+DETAILED DATA STRUCTURE DESCRIPTIONS:
+   Strengths:
+      Defines key structures:
+         Joint Command (name/id + Goal_Position offset)
+         Detection (label, confidence, bbox, center)
+         Sequence File (positions, timing)
+         Model Assets (config, weights)
+      Clear mapping to functional components.
+   Suggestions:
+      Add data type specifications (e.g., int, float, string).
+      Include validation rules (e.g., position range limits,
+         confidence thresholds).
+      Provide serialization format (JSON or CSV examples for
+         sequence files).
+      Document cardinality and relationships
+         (e.g., one sequence -> many positions).
+
+DETAILED DESIGN DIAGRAMS:
+   Strengths:
+      Mentions diagrams, but actual diagrams are missing
+         (only a placeholder image).
+      Indicates no database, which is appropriate for this system.
+   Suggestions:
+      Add class diagrams showing relationships among CSUs.
+      Include sequence diagrams for runtime interactions
+         (e.g., teleop loop).
+      Provide component diagrams for CSC-level architecture.
+      If applicable, add state diagrams for VisionSystem and
+         ServoController.
+
+DATABASE DESIGN AND DESCRIPTION:
+   Not applicable
+
+
+----------------------------------------------
+OVERALL ASSESSMENT:
+   Category                          Points
+   CSC/CSU Descriptions:                2 of  2
+   Class Descriptions:                  3 of  3
+   Interface Descriptions:              3 of  3
+   Data structure Descriptions:         1 of  1
+   Design diagrams:                     4 of  4
+   Database design/descriptions:        2 of  2
+                                     ===========
+   Subtotal                            15 of 15
+   ------------------------------------------------------
+   Total Percentage:  15/15 = 100% which is an A-plus
+
+
+
