@@ -1,0 +1,34 @@
+
+CMSI 4072 Spring 2026
+Project Proposal Feedback
+Project: Schedulr
+=========================
+Proposal Document [2 points]:
+   Verbal Description:
+      You clearly explain that the project is a robotic arm with computer
+      vision that will organize objects on a desk, and describe the current
+      status (3D-printed arm, servos, Raspberry Pi) from last semester.
+      Additionally, the changes planned for this semester (CV integration,
+      inverse kinematics, ROS2 integration) are well-described, along with
+      planned stretch goals.  You have a clear explanation of technical
+      components, your feature roadmap is well-defined, and your explanation
+      of target use and purpose is implied.
+
+   Justification:
+      You clearly express that your team enjoys robotics and wants to see
+      the project through.  You have a good connection to previous
+      coursework and honestly address the technical difficulty with a
+      thoughtful team feasiblity assessment.  This is strong justification.
+
+Proposal Presentation [Slides and video] [3 points]:
+   Slides:
+      Awesome job on the slides again.  I like the mix of solid color
+      slides with open-background and graphics.  Keeps it interesting.\!
+
+   Video:
+
+
+Summary:
+--------
+
+Nice job overall!  Keep up the good work.  Will update after video is posted.
