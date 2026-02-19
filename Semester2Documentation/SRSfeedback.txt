@@ -1,0 +1,62 @@
+
+Documentation Feedback ~ Deliverable #2
+Software Requirements Specification
+Initial Development Schedule
+CMSI 4072 Spring 2026
+=======================================
+
+COMPONENT BREAKDOWN:
+   Strengths
+      Clear major CSC divisions.
+      Each CSC includes meaningful subcomponents.
+   Suggestions
+      Add a brief description explaining why each CSC boundary exists.
+      Include a diagram or data-flow explanation.
+
+FUNCTIONAL REQUIREMENTS:
+   Strengths
+      Requirements are observable and testable.
+      Good coverage of all operational system behaviors.
+   Suggestions
+      Some requirements could use quantification (e.g., allowable detection
+         failure rates, minimum supported object classes).
+      Minor gaps: error‑handling behaviors, calibration failure cases, and
+         user‑input edge cases could be more explicitly defined.
+
+PERFORMANCE REQUIREMENTS:
+   Strengths
+      Metrics (FPS, seconds, centimeters) are clear and testable.
+      Covers timing, precision, and safety.
+   Suggestions
+      Could define maximum tolerances (e.g., max variance in response time).
+      Could include long‑duration stability or thermal‑performance metrics.
+
+ENVIRONMENT REQUIREMENTS:
+   Strengths
+      Clear software toolchain and hardware list.
+      Realistic for development and deployment.
+   Suggestions
+      Could add expected filesystem layout, required permissions, and
+         dependency‑version stability.
+      Could specify calibration environment assumptions (lighting, space).
+
+OVERALL ASSESSMENT:
+   Category                          Points
+   Component Breakdown               1.0/1
+   Functional Requirements           3.9/4
+   Performance Requirements          2.0/2
+   Environment Requirements          1.0/1
+                                     =====
+   Subtotal                          7.9/8
+   Preliminary Schedule              2.0/2
+   ------------------------------------------------------
+   Total Percentage:   9.9/10 = 99% which is an A-plus
+
+You've met most of the desired measurements for this deliverable.  Your SRS
+is very well done but could benefit from at least incorporating a few of
+the suggestions to make it even more complete, like the minor gaps listed
+in the Functional section.
+
+Nice work on this deliverable ~ keep up the good work!
+
+
