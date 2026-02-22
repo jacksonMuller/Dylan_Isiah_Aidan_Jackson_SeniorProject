@@ -1,0 +1,56 @@
+
+
+HW 1 - Stephens Book Chapters 1, 2, 4, and 5
+CMSI 4072 Spring 2026
+
+Category        Weight     Earned
+===========    ========    ======
+Problem 1.1    [8 pts.]       8.0
+Problem 1.2    [8 pts.]       8.0
+Problem 2.4    [1 pts.]       1.0
+Problem 2.5    [1 pts.]       1.0
+Problem 4.2    [5 pts.]       3.0
+Problem 4.4    [5 pts.]       5.0
+Problem 4.6    [1 pts.]       1.0
+Problem 4.8    [2 pts.]       2.0
+Problem 5.1    [1 pts.]       0.5
+Problem 5.3    [5 pts.]       4.0
+Problem 5.9    [3 pts.]       3.0
+
+      Subtotal [50 max]      40.0
+             Your Total      36.5
+
+         Letter grade   A-minus
+
+=================
+SPECIFIC COMMENTS:
+
+Problem 1.1 ~ correct
+
+Problem 1.2 ~ correct
+
+Problem 2.4 ~ correct
+
+Problem 2.5 ~ correct
+
+Problem 4.2 ~ critical path tasks themselves are not clearly listed (the
+   prompt asks for them explicitly).
+
+Problem 4.4 ~ correct
+
+Problem 4.6 ~ correct
+
+Problem 4.8 ~ correct
+
+Problem 5.1 ~ The prompt asks for five characteristics of good requirements.
+   The response lists security domains (OS, application, data, network,
+   physical), which is not what was asked.
+
+Problem 5.3 ~ Audience-oriented classification is attempted, but several
+   items are miscategorized: many behaviors (e, f, h, i, j) should be
+   functional; many items also warrant user + functional labels together.
+
+Problem 5.9 ~ correct
+
+
+nice work!

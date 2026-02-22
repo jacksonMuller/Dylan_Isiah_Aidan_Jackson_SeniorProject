@@ -1,0 +1,40 @@
+
+
+HW 2 - Stephens Book Chapters 5 and 6
+CMSI 4072 Spring 2026
+
+Category        Weight     Earned
+===========    ========    ======
+Problem 5.1    [ 5 pts.]      5.0
+Problem 5.2    [ 5 pts.]      5.0
+Problem 5.4    [ 5 pts.]      5.0
+Problem 5.6    [ 5 pts.]      5.0
+Problem 5.8    [10 pts.]     10.0
+Problem 6.1    [10 pts.]      8.0
+Problem 6.2    [10 pts.]     10.0
+
+       Subtotal [50 max]     50.0
+              Your Total     48.0
+
+         Letter grade   A
+
+=================
+SPECIFIC COMMENTS:
+
+Problem 5.1 ~ Minor problem: calling components “loosely used” is imprecise wording—components are loosely coupled and accessed within the same application. Otherwise solid.
+
+Problem 5.2 ~ correct
+
+Problem 5.4 ~ correct
+
+Problem 5.6 ~ correct
+
+Problem 5.8 ~ correct
+
+Problem 6.1 ~ Some shared properties expected in ClassyDraw (e.g., position, color, width/height, bounding box concepts) are missing from the “shared” list.
+Several properties are listed behaviorally rather than as state (e.g., “can be saved/loaded”).
+
+Problem 6.2 ~ correct
+
+
+nice work!
