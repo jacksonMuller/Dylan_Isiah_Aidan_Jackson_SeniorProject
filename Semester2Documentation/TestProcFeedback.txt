@@ -1,0 +1,57 @@
+
+Documentation Feedback ~ Deliverable #3
+Test Procedure Document
+CMSI 4072 Spring 2026 ~ robot arm
+=======================================
+
+A. Test steps are clearly documented and precise
+   Strengths
+
+   Suggestions
+
+B. Clear mapping between requirements and test cases
+   [or between user stories and test cases]
+   Strengths
+
+   Suggestions
+
+C. All assumptions and dependencies are explicitly captured
+   Strengths
+
+   Suggestions
+
+D. Test steps checklist exists
+   Strengths
+
+   Suggestions
+
+E. Test steps checklist completed [for second iteration]
+   Strengths
+
+   Suggestions
+
+
+OVERALL ASSESSMENT:
+   Category                          Points
+   A. documented                        0.0
+   B. mapping                           0.0
+   C. assumptions/dependencies          0.0
+   D. checklist                         0.0
+                                     ======
+   Subtotal                             0.0
+   ------------------------------------------------------
+   Total Percentage:  0/10 = 0% which is an F on this deliverable
+
+The document was not submitted by the due date, no other arrangements were
+made in advance.  Document was not located in repository by March 3 which
+is nearly a week past the due date.  Zero points for this deliverable.
+
+
+SECOND PASS ASSESSMENT
+   Category                          Points
+   A - D. updated previous              3.0
+   E. checklist completed               7.0
+                                     ======
+   Subtotal                            10.0
+   ------------------------------------------------------
+   Total Percentage:  10/10 = 100% which is an A-plus on this deliverable
