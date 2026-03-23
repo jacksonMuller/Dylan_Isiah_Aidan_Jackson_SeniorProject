@@ -6,24 +6,72 @@ CMSI 4072 Spring 2026 ~ robot arm
 
 A. Test steps are clearly documented and precise
    Strengths
-
+      Steps are numbered sequentially from setup through shutdown, making the
+         procedure easy to follow.
+      Steps describe observable behaviors such as object detection, servo
+         movement, gripper actions, and emergency stop handling.
+      Preconditions and requirements are listed before the procedure,
+         supporting clarity.
    Suggestions
+      Steps do not specify expected outcomes for pass/fail evaluation. Each
+         step should include precise expected results.
+      Some steps combine multiple checks in a single item (for example step
+         17 includes motion and rest-position verification). These should be
+         separated into atomic test cases.
+      Terminology such as “correctly working,” “verify,” and “confirm”
+         should be replaced with measurable criteria (e.g., “object position
+         output updates within ±5 pixels”).
+      Include environmental constraints such as lighting conditions for
+         OpenCV tests.
 
 B. Clear mapping between requirements and test cases
    [or between user stories and test cases]
    Strengths
-
+      The test steps clearly target major system capabilities such as object
+         detection, servo movement, pick-and-place operation, and emergency
+         stop features. These implicitly relate to expected requirements.
    Suggestions
+      There is no explicit traceability matrix linking each requirement
+         to specific test steps.
+      Requirement identifiers (e.g., R1, R2...) are not referenced in the
+         procedures, preventing verification of full coverage.
+      Add a table mapping:
+         requirement or user story ID,
+         corresponding test case IDs,
+         coverage notes (full, partial, or missing).
 
 C. All assumptions and dependencies are explicitly captured
    Strengths
-
+      Several hardware and software dependencies are listed, such as the
+         servo models, webcam, OpenCV, NumPy, and Raspberry Pi OS.
+      Preconditions mention power, connections, and code deployment.
    Suggestions
+      Additional assumptions should be stated, including:
+         expected lighting conditions,
+         stable background for camera detection,
+         calibrated servos,
+         required clearance around arm movement,
+         safety conditions for emergency stop testing.
+      Dependencies on third-party libraries (OpenCV versions, motor board
+         firmware) should be version-specific.
+      Environmental constraints such as table height and object size should
+         be documented.
 
 D. Test steps checklist exists
    Strengths
-
+      The list of steps could serve as a checklist because they are
+         sequential and itemized.
    Suggestions
+      There is no dedicated checklist grid or format for execution.
+      A proper checklist should include:
+            test case ID,
+            step description,
+            expected result,
+            pass/fail checkbox,
+            tester initials,
+            execution date.
+      The checklist should exist as a standalone section or appendix to make
+         repeated test runs consistent.
 
 E. Test steps checklist completed [for second iteration]
    Strengths
@@ -45,6 +93,25 @@ OVERALL ASSESSMENT:
 The document was not submitted by the due date, no other arrangements were
 made in advance.  Document was not located in repository by March 3 which
 is nearly a week past the due date.  Zero points for this deliverable.
+
+
+RE-EVALUATED ASSESSMENT 2026-03-21:
+   Category                          Points
+   A. documented                        2.0
+   B. mapping                           2.0
+   C. assumptions/dependencies          2.0
+   D. checklist                         3.0
+                                     ======
+   Subtotal                             9.0
+   ------------------------------------------------------
+   Total Percentage:  9/10 = 90% which is an A-minus on this deliverable
+
+The test procedure is wel--structured, thorough in hardware interaction
+coverage, and includes a logical flow from initialization to shutdown.
+However, it lacks formal test case structure, traceability, explicit
+assumptions, and execution documentation.  Adding these elements will
+convert it into a complete, auditable Software Test Procedure suitable
+for waterfall or agile environments.
 
 
 SECOND PASS ASSESSMENT

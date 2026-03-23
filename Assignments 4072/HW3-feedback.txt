@@ -1,0 +1,56 @@
+
+
+HW 3 - Stephens Book Chapters 7 and 8
+CMSI 4072 Spring 2026
+
+Category        Weight     Earned
+===========    ========    ======
+Problem 7.1    [5 pts.]      4.0
+Problem 7.2    [4 pts.]      4.0
+Problem 7.4    [5 pts.]      5.0
+Problem 7.5    [4 pts.]      4.0
+Problem 7.7    [5 pts.]      5.0
+Problem 8.1    [5 pts.]      5.0
+Problem 8.3    [5 pts.]      5.0
+Problem 8.5    [4 pts.]      4.0
+Problem 8.9    [4 pts.]      4.0
+Problem 8.11   [5 pts.]      5.0
+Problem 8.12   [4 pts.]      4.0
+
+       Subtotal [50 max]     50.0
+              Your Total     50.0
+         50.0 out of 50.0 = 100.0%
+
+         Letter grade   A-plus
+
+=================
+SPECIFIC COMMENTS:
+Problem 7.1
+   You can still get rid of some further comments by taking out those that
+   simply repeat what the code says.
+Problem 7.2
+   Correct
+Problem 7.4
+   Correct
+Problem 7.5
+   Depends on your definition of "error handling" ~ if you have the called
+   function throw an error, that passes the error back to the caller, so is
+   that "error handling" in the called function?  :D
+Problem 7.7
+   Correct
+Problem 8.1
+   Correct
+Problem 8.3
+   Correct
+Problem 8.5
+   Correct
+Problem 8.9
+   You make a case for your answer, but actually exhaustive is black box,
+   because you don't need to know what the internals are, just the inputs
+   and outputs that match them.
+Problem 8.11
+   Correct
+Problem 8.12
+   Correct
+
+nice work!
