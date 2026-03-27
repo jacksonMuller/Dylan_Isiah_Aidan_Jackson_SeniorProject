@@ -1,0 +1,62 @@
+# SO-101 Vision Pipeline Configuration
+# Switch between simulation and real hardware with one flag
+
+mode: "simulation"  # "simulation" or "real"
+
+camera:
+  # MuJoCo camera name (simulation mode)
+  mujoco_camera: "overhead"
+  # USB webcam device index (real mode)
+  usb_device: 0
+  # Resolution for rendering / capture
+  width: 640
+  height: 480
+
+detection:
+  # HSV range for color detection (default: red object)
+  hsv_lower: [0, 120, 70]
+  hsv_upper: [10, 255, 255]
+  # Second red range (red wraps around in HSV)
+  hsv_lower2: [170, 120, 70]
+  hsv_upper2: [180, 255, 255]
+  # Minimum contour area in pixels to count as a detection
+  min_area: 100
+
+homography:
+  # Path to saved homography matrix (created by calibration)
+  matrix_file: "calibration/homography.npy"
+
+ik:
+  # Height (z) at which the gripper approaches the object
+  approach_height: 0.15
+  # Height (z) for pickup
+  grasp_height: 0.02
+  # Max iterations for IK solver
+  max_iterations: 200
+  # Position tolerance in meters
+  tolerance: 0.001
+
+manual_grasp_target:
+  # Press 'g' in the MuJoCo viewer to run a floor pick-and-place sequence.
+
+  # Target positions for the manual 'g' sequence (relative to robot base frame)
+  x: 0.20
+  y: 0.10
+  pick_approach_z: 0.15
+  pick_z: 0.02
+
+  # Target positions for the place location in the manual 'g' sequence
+  carry_z: 0.18
+  place_x: 0.10
+  place_y: -0.12
+  place_approach_z: 0.18
+  place_z: 0.02
+
+  # Sideways pickup orientation for the manual 'g' sequence.
+  wrist_roll_deg: 90.0
+  gripper_open_deg: 80.0
+  gripper_closed_deg: 5.0
+
+real_hardware:
+  # LeRobot port (for real mode)
+  port: "/dev/ttyUSB0"
