@@ -1,9 +1,19 @@
+"""
+testCoordinate.py: coordinate tracking of an object detected by the webcam.
+
+Notes:
+    - 4/6/26: Updated matrices and did some bugfixing to get the coordinates to (hypothetically) work.  Moving the mouse left and right changed the x coordinate
+    and moving it forward and backwards changed the y coordinate.  Z coordinate does not appear to be significant.  Waiting to test using some inverse kinematics
+    algorithm(s) to see if we can use this to get everything to work.
+
+"""
+
 import cv2
 
 import time
-from gpiozero import AngularServo
+#from gpiozero import AngularServo
 from detection_ik_target import compute_target_base_from_bbox, pick_best_detection
-servo =AngularServo(18, initial_angle=0, min_pulse_width=0.0006, max_pulse_width=0.0023)
+#servo =AngularServo(18, initial_angle=0, min_pulse_width=0.0006, max_pulse_width=0.0023)
 
 #thres = 0.45 # Threshold to detect object
 
@@ -39,9 +49,9 @@ def getObjects(img, thres, nms, draw=True, objects=[]):
                     cv2.putText(img,str(round(confidence*100,2)),(box[0]+200,box[1]+30),
                     cv2.FONT_HERSHEY_COMPLEX,1,(0,255,0),2)
                     
-                    servo.angle = -90
-                    time.sleep(2)
-                    servo.angle = 90
+                    #servo.angle = -90
+                    #time.sleep(2)
+                    #servo.angle = 90
     
     return img,objectInfo
 
@@ -52,12 +62,12 @@ if __name__ == "__main__":
     FOV_DEG_X = 60.0
     # Default axis alignment (adjust to your camera mount).
     # base_X = +cam_Z, base_Y = -cam_X, base_Z = -cam_Y
-    R_CAM_TO_BASE = (
-        (0.0, 0.0, 1.0),
-        (-1.0, 0.0, 0.0),
-        (0.0, -1.0, 0.0),
+    R_CAM_TO_BASE = ( # Rotational measurement of the difference between the motor base and camera AKA the camera is facing 28.5 degrees downward from it's perch
+        (1.0, 0.0, 0.0),
+        (0.0, -0.879, 0.478), # Measurement of 28.5 degrees was calculated by placing a dot in the center of the viewport and then measuring the distance 
+        (0.0, -0.478, -0.879),# from that to the base and using trig
     )
-    T_CAM_TO_BASE_M = (0.0, 0.0, 0.0)
+    T_CAM_TO_BASE_M = (-0.0254, 0.0127, 0.3810) # Positional measurement of the difference between the camera position and motor base position
     last_print_s = 0.0
 
 

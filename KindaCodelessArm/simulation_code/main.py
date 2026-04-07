@@ -20,6 +20,8 @@ import mujoco
 import mujoco.viewer
 import yaml
 
+from lerobot.motors import Motor, MotorNormMode
+
 from vision import (
     capture_frame_sim,
     capture_frame_real,
@@ -29,6 +31,18 @@ from vision import (
 )
 from ik_solver import solve_ik
 from utils import send_joint_command, move_to_pose, get_gripper_position, get_current_joint_angles
+
+#Default configs pulled from keyboard_demo.py
+DEFAULT_MOTORS = {
+                "joint_1": Motor(1, "sts3215", MotorNormMode.DEGREES),
+                "joint_2": Motor(2, "sts3215", MotorNormMode.DEGREES),
+                "joint_3": Motor(3, "sts3215", MotorNormMode.DEGREES),
+                "joint_4": Motor(4, "sts3215", MotorNormMode.DEGREES),
+                "joint_5": Motor(5, "sts3215", MotorNormMode.DEGREES),
+                "joint_6": Motor(6, "sts3215", MotorNormMode.DEGREES),
+            }
+
+DEFAULT_PORT = '/dev/ttyACM0'
 
 
 def load_config(path: str = "config.yaml") -> dict:
@@ -329,10 +343,13 @@ def run_real(config: dict):
     try:
         from lerobot.common.robot_devices.motors.feetech import FeetechMotorsBus
     except ImportError:
-        print("[REAL] LeRobot not installed. Install with: pip install lerobot")
-        sys.exit(1)
+        try:
+            from lerobot.motors.feetech import FeetechMotorsBus #4/6/26 Added working import for FeetechMotorsBus from keyboard_demo.py
+        except ImportError:
+            print("[REAL] LeRobot not installed. Install with: pip install lerobot")
+            sys.exit(1)
 
-    motors = FeetechMotorsBus(port=hw_cfg["port"])
+    motors = FeetechMotorsBus(port=DEFAULT_PORT, motors=DEFAULT_MOTORS) #4/6/26 - Changed from config inputs to default inputs based on what had worked in the past
     motors.connect()
 
     print("[REAL] Starting real hardware pipeline. Press 'q' to quit.")
@@ -360,15 +377,16 @@ def run_real(config: dict):
 
             # Send to real motors via LeRobot
             # Map joint names to LeRobot motor IDs (adjust mapping as needed)
-            motor_positions = {
-                "shoulder_pan": joint_angles["shoulder_pan"],
-                "shoulder_lift": joint_angles["shoulder_lift"],
-                "elbow_flex": joint_angles["elbow_flex"],
-                "wrist_flex": joint_angles["wrist_flex"],
-                "wrist_roll": joint_angles["wrist_roll"],
-                "gripper": joint_angles["gripper"],
+            motor_positions = { #4/6/26 - Running this code gave a TypeError since FeetechMotorsBus does some bitwise or-ing, which must involve ints.  Typecasted to suppress error.
+                "joint_1": int(joint_angles["shoulder_pan"]),
+                "joint_2": int(joint_angles["shoulder_lift"]),
+                "joint_3": int(joint_angles["elbow_flex"]),
+                "joint_4": int(joint_angles["wrist_flex"]),
+                "joint_5": int(joint_angles["wrist_roll"]),
+                "joint_6": int(joint_angles["gripper"]),
             }
-            motors.write("Goal_Position", list(motor_positions.values()))
+            print(f'Motor_positions dict: {motor_positions}')
+            motors.sync_write("Goal_Position", motor_positions, normalize=False)
         else:
             annotated = frame
 
@@ -405,6 +423,12 @@ def main():
         run_simulation(config)
     else:
         run_real(config)
+        """
+            # ~ As of 4/6/26, running this code in real mode just made the arm make a large movement that ended up ripping the shoulder_lift motor
+            out of the socket.  Additionally, we noted that this code needs cleanup code like in keyboard_demo.py that will ensure the motors aren't
+            holding their position should the program fail/keyboard interrupt.  Not sure if the movement discrepancy is a result of configuration issues
+            or IK issues.
+        """
 
 
 if __name__ == "__main__":
