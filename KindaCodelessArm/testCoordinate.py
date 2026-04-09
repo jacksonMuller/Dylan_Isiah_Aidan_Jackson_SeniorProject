@@ -5,6 +5,9 @@ Notes:
     - 4/6/26: Updated matrices and did some bugfixing to get the coordinates to (hypothetically) work.  Moving the mouse left and right changed the x coordinate
     and moving it forward and backwards changed the y coordinate.  Z coordinate does not appear to be significant.  Waiting to test using some inverse kinematics
     algorithm(s) to see if we can use this to get everything to work.
+    - 4/8/26 - Limit testing the bounds of the coordinate system
+        - X coordinate - goes from -0.33 to 0.28
+        - Y coordinate - goes from 0.152 to 0.44
 
 """
 
