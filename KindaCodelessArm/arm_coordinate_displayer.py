@@ -9,3 +9,6 @@ def main():
         print(f"Coord: {coord_pos} maps to motor positions: {motor_pos}")
     
     arm.cleanup()
+
+if __name__ == "__main__":
+    main()

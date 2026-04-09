@@ -55,6 +55,7 @@ class RobotMotorInterface:
         port: port of motor control board.  Use lerobot calibration script to find correct port.  For more instructions see the huggingface website.
         motors: mapping of motor names to motor objects
         """
+        print(f"Creating Robot Interface on port: {port}")
         self.port = port
         self.motors = motors
         self.connected = False
