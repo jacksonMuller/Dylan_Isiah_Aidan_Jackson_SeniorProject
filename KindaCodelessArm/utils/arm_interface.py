@@ -103,7 +103,6 @@ class RobotMotorInterface:
 
     def cleanup(self):
         print("\r\n====================\r\nDisconnecting from arm\r\n====================")
-        self.rest_arm()
         self.bus.disconnect()
 
     def motor_control(self, motor, offset):
