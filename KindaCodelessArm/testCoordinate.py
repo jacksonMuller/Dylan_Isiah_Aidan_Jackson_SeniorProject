@@ -5,9 +5,12 @@ Notes:
     - 4/6/26: Updated matrices and did some bugfixing to get the coordinates to (hypothetically) work.  Moving the mouse left and right changed the x coordinate
     and moving it forward and backwards changed the y coordinate.  Z coordinate does not appear to be significant.  Waiting to test using some inverse kinematics
     algorithm(s) to see if we can use this to get everything to work.
-    - 4/8/26 - Limit testing the bounds of the coordinate system
-        - X coordinate - goes from -0.33 to 0.28
+    - 4/8/26 - Limit testing the bounds of the coordinate system using a mouse on the camera in the keck lab
+        - X coordinate - goes from -0.33 to 0.28 ===> X-Coordinate seems to be fixed, sits around 0 when mouse is placed directly in front of the arm
         - Y coordinate - goes from 0.152 to 0.44
+        - For next time: use empirical measurements to determine how accurate the coordinate system is and whether or not we can fix it by messing with the translation matrix.  
+        Use Dondi's triangle method to calculate angles for the motors.  Pan can be calculated by drawing a right triangle along the 2D plane using the x and y coordinate from the camera.
+        The hypotenuse of that triangle can become d and we can use the measurements of the arm and forearm segments to invoke law of cosines and get angle measurements for the other motors.
 
 """
 
@@ -64,13 +67,12 @@ if __name__ == "__main__":
     DEPTH_M = 0.60
     FOV_DEG_X = 60.0
     # Default axis alignment (adjust to your camera mount).
-    # base_X = +cam_Z, base_Y = -cam_X, base_Z = -cam_Y
     R_CAM_TO_BASE = ( # Rotational measurement of the difference between the motor base and camera AKA the camera is facing 28.5 degrees downward from it's perch
         (1.0, 0.0, 0.0),
         (0.0, -0.879, 0.478), # Measurement of 28.5 degrees was calculated by placing a dot in the center of the viewport and then measuring the distance 
         (0.0, -0.478, -0.879),# from that to the base and using trig
     )
-    T_CAM_TO_BASE_M = (-0.0254, 0.0127, 0.3810) # Positional measurement of the difference between the camera position and motor base position
+    T_CAM_TO_BASE_M = (-0.127, -0.0254, 0.3810) # Positional measurement of the difference between the camera position and motor base position
     last_print_s = 0.0
 
 

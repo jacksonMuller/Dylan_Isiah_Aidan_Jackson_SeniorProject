@@ -3,7 +3,7 @@ import cv2
 #thres = 0.45 # Threshold to detect object
 
 classNames = []
-classFile = "/Users/aidanhodges/Desktop/Object_Detection_Files/coco.names"
+classFile = "/home/pi/Desktop/Dylan_Isiah_Aidan_Jackson_SeniorProject/KindaCodelessArm/coco.names"
 with open(classFile,"rt") as f:
     classNames = f.read().rstrip("\n").split("\n")
 
