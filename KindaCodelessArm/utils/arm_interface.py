@@ -42,6 +42,7 @@ def load_calibration(robot_name="KindaCodeless"):
     fpath = curr_path / f"{robot_name}Config.json"
     with open(fpath) as f, draccus.config_type("json"):
         calibration = draccus.load(dict[str, MotorCalibration], f)
+        print(f"Loaded calibration: {calibration}")
         return calibration
     
 DEFAULT_MOTORS={
@@ -62,6 +63,12 @@ DEFAULT_MOTORS_DEGREES={
                 "gripper": Motor(6, "sts3215", MotorNormMode.DEGREES),
             }
 
+TRIG_MEASUREMENTS={ # Important measurements for making conceptual triangles with the robot
+                "ground_to_shoulder": 0.125, # Height from the ground to the point of rotation on shoulder_lift motor
+                "lower_arm": 0.105, # Length of lower arm from shoulder_lift to elbow_flex
+                "forearm": 0.145, # Length of forearm from elbow_flex to wrist_flex
+                "base_to_tip": 0.17, # Length from wrist_flex to tip of grabber
+}
 
 class RobotMotorInterface:
     """
@@ -179,11 +186,11 @@ class RobotMotorInterface:
 
         if duration == 0:
             # Just go as fast as possible
-            self.bus.sync_write("Goal_Position", desired_position, normalize=False)
+            self.bus.sync_write("Goal_Position", desired_position, normalize=True)
         else:
             # Interpolate positions based on given duration
             start_time = time.time()
-            starting_pose = self.bus.read("Present_Position", "wrist_flex", normalize=False)
+            starting_pose = self.bus.sync_read("Present_Position", normalize=True)
             
             while True:
                 t = time.time() - start_time
