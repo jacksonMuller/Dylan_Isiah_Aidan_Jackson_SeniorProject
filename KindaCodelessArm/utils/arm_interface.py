@@ -65,7 +65,7 @@ DEFAULT_MOTORS_DEGREES={
 
 TRIG_MEASUREMENTS={ # Important measurements for making conceptual triangles with the robot
                 "ground_to_shoulder": 0.125, # Height from the ground to the point of rotation on shoulder_lift motor
-                "lower_arm": 0.105, # Length of lower arm from shoulder_lift to elbow_flex
+                "lower_arm": 0.125, # Length of lower arm from shoulder_lift to elbow_flex
                 "forearm": 0.145, # Length of forearm from elbow_flex to wrist_flex
                 "base_to_tip": 0.17, # Length from wrist_flex to tip of grabber
 }
@@ -110,6 +110,14 @@ class RobotMotorInterface:
             self.joint_names[4]: 2792,
             self.joint_names[5]: 2984,
             self.joint_names[6]: 2045,
+        }
+        self.rest_position_degrees = {
+            self.joint_names[1]: -8.0, 
+            self.joint_names[2]: -0.3956043956043956, 
+            self.joint_names[3]: -0.5714285714285714, 
+            self.joint_names[4]: 0.21978021978021978, 
+            self.joint_names[5]: -1.6263736263736264, 
+            self.joint_names[6]: -61.27472527472528
         }
 
         # Attempt to instantiate a motors bus in a few ways:

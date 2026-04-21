@@ -13,9 +13,13 @@ Notes:
         The hypotenuse of that triangle can become d and we can use the measurements of the arm and forearm segments to invoke law of cosines and get angle measurements for the other motors.
     - 4/12/26 - Tested pointing the shoulder_pan motor towards the object based on conceptual right triangle drawn on the table.  This seemed to work well, but when we tried to calculate the 
     shoulder lift and elbow flex, it was reaching far past the object.  Could be some issues with the way we're approaching the triangle.  See trig calculations in main loop for more info.
+    - 4/20/26 - Combined testCoordinate.py with the full position function of shoulder_pan_angle.py.  Found that it can be super accurate (usually when the object is near the middle of 
+    the camera's view), but the x-coordinate scales very strangely as you move left and right.
     
-    For next time: tune triangle calculation and figure out what might be wrong with shoulder_lift and elbow_flex.  Also need to tune wrist_flex due to difference in motor degrees and conceptual
-    degrees.
+    
+    For next time: Revamp keyboard demo to use a conceptual coordinate and employ the inverse kinematics system from this file to be able to move around.  Possibly keep working on tuning
+    camera control, but it may be hardware restrained or too difficult for the next two weeks.  If we can't figure it out, we can always just demonstrate both the accurate and innaccurate
+    ranges and talking about the struggles we faced during debugging.
 """
 
 import cv2
@@ -24,9 +28,9 @@ import time
 #from gpiozero import AngularServo
 from detection_ik_target import compute_target_base_from_bbox, pick_best_detection
 #servo =AngularServo(18, initial_angle=0, min_pulse_width=0.0006, max_pulse_width=0.0023)
-from utils.arm_interface import TRIG_MEASUREMENTS
+from utils.arm_interface import TRIG_MEASUREMENTS, RobotMotorInterface, DEFAULT_MOTORS_DEGREES
 
-#thres = 0.45 # Threshold to detect object
+arm = RobotMotorInterface(motors=DEFAULT_MOTORS_DEGREES)
 
 classNames = []
 classFile = "/home/pi/Desktop/Object_Detection_Files/coco.names"
@@ -36,11 +40,16 @@ with open(classFile,"rt") as f:
 configPath = "/home/pi/Desktop/Object_Detection_Files/ssd_mobilenet_v3_large_coco_2020_01_14.pbtxt"
 weightsPath = "/home/pi/Desktop/Object_Detection_Files/frozen_inference_graph.pb"
 
+TARGET_OBJECTS = ['mouse']
+
 net = cv2.dnn_DetectionModel(weightsPath,configPath)
 net.setInputSize(320,320)
 net.setInputScale(1.0/ 127.5)
 net.setInputMean((127.5, 127.5, 127.5))
 net.setInputSwapRB(True)
+
+def rad_to_deg(radians):
+        return float(radians) * (180/math.pi)
 
 
 def getObjects(img, thres, nms, draw=True, objects=[]):
@@ -70,7 +79,7 @@ def getObjects(img, thres, nms, draw=True, objects=[]):
 if __name__ == "__main__":
     # Tune these for your camera mounting + working distance.
     DEPTH_M = 0.60
-    FOV_DEG_X = 60.0
+    FOV_DEG_X = 110.0
     # Default axis alignment (adjust to your camera mount).
     R_CAM_TO_BASE = ( # Rotational measurement of the difference between the motor base and camera AKA the camera is facing 28.5 degrees downward from it's perch
         (1.0, 0.0, 0.0),
@@ -86,12 +95,19 @@ if __name__ == "__main__":
     cap.set(4,480)
     #cap.set(10,70)
     
+    last_seen_pos = {
+    "wrist_flex":0.0,
+    "gripper":-62.0,
+    "wrist_roll":3.2,
+    }
+    
     
     while True:
         success, img = cap.read()
-        result, objectInfo = getObjects(img,0.45,0.2, objects=['banana','book','cup','mouse'])
+        result, objectInfo = getObjects(img,0.45,0.2, objects=TARGET_OBJECTS)
 
         best = pick_best_detection(objectInfo)
+        
         if best is not None:
             bbox_xywh, class_name, conf = best
             img_h = float(img.shape[0])
@@ -119,44 +135,69 @@ if __name__ == "__main__":
                 sp_hypotenuse = math.sqrt((sp_adjacent**2 + sp_opposite**2))
                 
                 shoulder_pan_angle = math.atan2(sp_opposite, sp_adjacent)
+                last_seen_pos[arm.joint_names[1]] = rad_to_deg(shoulder_pan_angle)
                 
-                # Calculate shoulder lift angle
+                # Calculate shoulder lift triangle lengths
                 sl_opposite = TRIG_MEASUREMENTS["base_to_tip"] - TRIG_MEASUREMENTS["ground_to_shoulder"]/2
                 sl_adjacent = sp_hypotenuse
                 sl_hypotenuse = math.sqrt((sl_opposite**2 + sl_adjacent**2))
                 
                 print(f"Conceptual shoulder lift triangle has lengths: opposite - {sl_opposite}, adjacent - {sl_adjacent}, hypotenuse - {sl_hypotenuse}")
                 
-                # Calculate elbow lift angle
+                # Calculate elbow lift triangle
                 el_c = sl_hypotenuse
                 el_a = TRIG_MEASUREMENTS["lower_arm"]
                 el_b = TRIG_MEASUREMENTS["forearm"]
                 
                 print(f"Conceptual elbow lift triangle has lengths: a - {el_a}, b - {el_b}, c - {el_c}")
                 
-                thetaB = math.acos((el_a**2 + el_c**2 - el_b**2)/(2*el_a*el_c))
-                shoulder_lift_angle = math.pi - (thetaB + math.atan2(sl_opposite, sl_adjacent) - 0.22) # Subtract 12 degree motor error offset
+                if el_a + el_b < el_c:
+                    print("Outside of range")
+                else:
                 
-                elbow_lift_angle = math.acos((el_a**2 + el_b**2 - el_c**2)/(2*el_b*el_a)) # Law of cosines to find theta(c)
+                    thetaB = math.acos((el_a**2 + el_c**2 - el_b**2)/(2*el_a*el_c))
+                    shoulder_lift_angle = math.pi - (thetaB + math.atan2(sl_opposite, sl_adjacent) - 0.22) # Subtract 12 degree motor error offset
+                    last_seen_pos[arm.joint_names[2]] = rad_to_deg(shoulder_lift_angle)
+                    
+                    elbow_lift_angle = math.acos((el_a**2 + el_b**2 - el_c**2)/(2*el_b*el_a)) # Law of cosines to find theta(c)
+                    last_seen_pos[arm.joint_names[3]] = rad_to_deg(elbow_lift_angle) * -1
+                    
+                    # Calculate wrist flex angle
+                    # We can just add theta(a) from elbow lift and the angle from the shoulder lift calulation
+                    
+                    sl_part = math.atan2(sl_adjacent, sl_opposite)
+                    thetaA = math.acos(((el_c**2 + el_b**2 - el_a**2)/(2*el_b*el_c)))
+                    
+                    wrist_flex_angle = sl_part + thetaA
+                    #last_seen_pos[arm.joint_names[4]] == rad_to_deg(wrist_flex_angle) * -1
                 
-                # Calculate wrist flex angle
-                # We can just add theta(a) from elbow lift and the angle from the shoulder lift calulation
                 
-                sl_part = math.atan2(sl_adjacent, sl_opposite)
-                thetaA = math.acos(((el_c**2 + el_b**2 - el_a**2)/(2*el_b*el_c)))
-                
-                wrist_flex_angle = sl_part + thetaA
-                
-                
-                print(
-                    f"Detected {class_name} (conf={conf:.2f}) -> "
-                    f"target_base x={target['x']:.3f} y={target['y']:.3f} z={target['z']:.3f} "
-                    f"(theta1={target['theta1_deg']:.1f} deg)"
-                    f"=> Shoulder pan angle: {shoulder_pan_angle}\nShoulder lift angle: {shoulder_lift_angle}\nElbow lift angle: {elbow_lift_angle}\nWrist flex angle: {wrist_flex_angle}"
-                )
+                    print(
+                        f"Detected {class_name} (conf={conf:.2f}) -> "
+                        f"target_base x={target['x']:.3f} y={target['y']:.3f} z={target['z']:.3f} "
+                        f"(theta1={target['theta1_deg']:.1f} deg)\n"
+                        f"{'*' * 10}\nLast Seen Pos Dict: {last_seen_pos}\n{'*' * 10}\n"
+                        #f"=> Shoulder pan angle: {shoulder_pan_angle}\nShoulder lift angle: {shoulder_lift_angle}\nElbow lift angle: {elbow_lift_angle}\nWrist flex angle: {wrist_flex_angle}"
+                    )
         
         
         
         cv2.imshow("Output",img)
-        cv2.waitKey(1)
+        key = cv2.waitKey(1)
+        
+        #print(f"Detected key input: {key}")
+        
+        if key == 0xA or key == 0xD:
+            print("Enter pressed, going to last seen object")
+            
+            print(f"Sending positions: {last_seen_pos}")
+            arm.move_to_pose(last_seen_pos, duration=0)
+            time.sleep(5)
+            arm.move_to_pose(arm.rest_position_degrees, duration=0)
+            
+        if key == 0x71:
+            print("Quitting...")
+            
+            arm.cleanup()
+            break
     
