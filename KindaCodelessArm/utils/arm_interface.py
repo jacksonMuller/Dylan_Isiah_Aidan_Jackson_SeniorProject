@@ -42,7 +42,7 @@ def load_calibration(robot_name="KindaCodeless"):
     fpath = curr_path / f"{robot_name}Config.json"
     with open(fpath) as f, draccus.config_type("json"):
         calibration = draccus.load(dict[str, MotorCalibration], f)
-        print(f"Loaded calibration: {calibration}")
+        #print(f"Loaded calibration: {calibration}")
         return calibration
         
 def rad_to_deg(radians):
@@ -92,7 +92,7 @@ class RobotMotorInterface:
         port: port of motor control board.  Use lerobot calibration script to find correct port.  For more instructions see the huggingface website.
         motors: mapping of motor names to motor objects
         """
-        print(f"Creating Robot Interface on port: {port}")
+        #print(f"Creating Robot Interface on port: {port}")
         self.port = port
         self.motors = motors
         self.connected = False
@@ -125,24 +125,20 @@ class RobotMotorInterface:
             self.joint_names[6]: -61.27472527472528
         }
 
-        # Attempt to instantiate a motors bus in a few ways:
         try:
-            # common constructor pattern: MotorsBus(port=..., brand="feetech", model="sts3215", baudrate=...)
-            # This may differ by lerobot version. Adjust if your installation uses another signature.
             try:
                 self.bus = MotorsBus(port=self.port, motors=self.motors, brand="feetech", model="sts3215")
             except TypeError:
-                # alternative: simpler signature
-                print("Trying simpler signature")
+                # print("Trying simpler signature")
                 self.bus = FeetechMotorsBus(self.port, motors=self.motors, calibration=load_calibration(self.name))
                 self.bus.connect()
             self.connected = True
-            print(f"Connected to Motors bus on {self.port}.")
+            #print(f"Connected to Motors bus on {self.port}.")
         except Exception as e:
             print("ERROR connecting to MotorsBus:", e)
 
     def cleanup(self):
-        print("\r\n====================\r\nDisconnecting from arm\r\n====================")
+        print("\r\n======================\r\nDisconnecting from arm\r\n======================")
         self.bus.disconnect()
 
     def motor_control(self, motor, offset):
@@ -187,6 +183,130 @@ class RobotMotorInterface:
         """
         print("\r\nGoing to rest")
         self.bus.sync_write("Goal_Position", self.rest_position, normalize=False)
+        
+    def close_gripper(self, load_threshold=50, step=2.0, step_delay=0.05):
+        current_pos = self.bus.read("Present_Position", "gripper")
+        
+        while current_pos > -62.0:
+            try:
+                load = self.bus.read("Present_Load", "gripper")
+            except Exception as e:
+                print(f"Load read error: {e}")
+        
+            print(f"\r\nGripper pos={current_pos:.1f}, load={load}")
+            
+            if abs(load) >= load_threshold:
+                print("Object gripped")
+                break
+                
+            current_pos -= step
+            try:
+                self.bus.write("Goal_Position", "gripper", max(current_pos, -62.0))
+            except Exception as e:
+                print(f"Write error (ignoring): {e}")
+                break
+            time.sleep(step_delay)
+            
+    def release_gripper(self):
+        try:
+            self.bus.write("Goal_Position", "gripper", 0.0)
+        except Exception as e:
+            print(f"Gripper release write error: {e}")
+        time.sleep(1)
+        try:
+            self.bus.write("Goal_Position", "gripper", -62.0)
+        except Exception as e:
+            print(f"Gripper re-close write error: {e}")
+        time.sleep(1)
+        
+    def claw_machine_grab(self, pointX, pointY, pointZ):
+        """
+        Opens gripper, reaches down, and tries to pick up something directly below the gripper
+        """
+        
+        # Open gripper
+        starting_pose = self.get_target_angles(pointX, pointY, pointZ)
+        starting_pose["gripper"] = 0
+        self.move_to_pose(starting_pose)
+        time.sleep(1)
+        
+        # Reach down
+        target_pose = self.get_target_angles(pointX, pointY, TRIG_MEASUREMENTS["base_to_tip"] - TRIG_MEASUREMENTS["ground_to_shoulder"])
+        self.move_to_pose(target_pose)
+        time.sleep(1)
+        
+        # Close gripper
+        self.close_gripper()
+        time.sleep(1)
+        
+        # Pick up
+        closed_gripper_pos = self.bus.read("Present_Position", "gripper")
+        starting_pose["gripper"] = closed_gripper_pos
+        self.move_to_pose(starting_pose)
+        time.sleep(1)
+        
+    def get_target_angles(self, pointX, pointY, pointZ=(TRIG_MEASUREMENTS["base_to_tip"] - TRIG_MEASUREMENTS["ground_to_shoulder"]/2)):
+        """
+        Get motor angles in degrees to place the hand over the specified point
+        
+        Arguments:
+            - pointX: X (left-right from the perspective of the arm base) coordinate of point in m with the origin at the point of rotation in the shoulder_pan motor
+            - pointY: Y (forward-backward from the perspective of the arm base) coordinate of point in m with the origin at the point of rotation in the shoulder_pan motor
+            
+        Returns:
+            - pos: dictionary of angles for each motor in a format that can be passed directly to move_to_pose on the arm interface
+        """
+        
+        #Initialize dict with values that aren't going to change
+        pos = {
+        "wrist_flex": 0.0,
+        "gripper": -62.0,
+        "wrist_roll": 3.2,
+        }
+        
+        # Shoulder_pan - 2d projected triangle on the surface of the table
+        sp_adjacent = pointY
+        sp_opposite = pointX
+        sp_hypotenuse = math.sqrt((sp_adjacent**2 + sp_opposite**2))
+                    
+        shoulder_pan_angle = math.atan2(sp_opposite, sp_adjacent)
+        pos[self.joint_names[1]] = rad_to_deg(shoulder_pan_angle)
+        
+        # Calculate shoulder lift triangle lengths
+        sl_opposite = pointZ
+        sl_adjacent = sp_hypotenuse
+        sl_hypotenuse = math.sqrt((sl_opposite**2 + sl_adjacent**2))
+        
+        # Calculate elbow lift triangle
+        el_c = sl_hypotenuse
+        el_a = TRIG_MEASUREMENTS["lower_arm"]
+        el_b = TRIG_MEASUREMENTS["forearm"]
+        
+        # Uncomment for debug messages about triangle side lengths
+        #print(f"Conceptual shoulder lift triangle has lengths: opposite - {sl_opposite}, adjacent - {sl_adjacent}, hypotenuse - {sl_hypotenuse}\r\nConceptual elbow lift triangle has lengths: a - {el_a}, b - {el_b}, c - {el_c}")
+        
+        if el_a + el_b < el_c: # Catch if we're trying to reach past where the two segments of the arm can reach to prevent domain err on the arccos call
+            print("Outside of range")
+        else:
+        
+            thetaB = math.acos((el_a**2 + el_c**2 - el_b**2)/(2*el_a*el_c))
+            shoulder_lift_angle = math.pi - (thetaB + math.atan2(sl_opposite, sl_adjacent) - 0.22) # Subtract 12 degree motor error offset to calibrate to level, then subtract calculated value from 180
+            pos[self.joint_names[2]] = rad_to_deg(shoulder_lift_angle)
+            
+            elbow_lift_angle = math.acos((el_a**2 + el_b**2 - el_c**2)/(2*el_b*el_a)) # Law of cosines to find theta(c)
+            pos[self.joint_names[3]] = rad_to_deg(elbow_lift_angle) * -1
+            
+            # Calculate wrist flex angle
+            # We can just add theta(a) from elbow lift and the angle from the shoulder lift calulation
+            
+            sl_part = math.atan2(sl_adjacent, sl_opposite)
+            thetaA = math.acos(((el_c**2 + el_b**2 - el_a**2)/(2*el_b*el_c)))
+            
+            wrist_flex_angle = sl_part + thetaA
+            pos[self.joint_names[4]] = max(min(23.0, ((rad_to_deg(wrist_flex_angle) * -1) + 90)), -180.0)
+            #print(max(min(23.0, ((rad_to_deg(wrist_flex_angle) * -1) + 90)), -180.0))
+        
+        return pos
 
     def move_to_pose(self, desired_position, duration=0):
         """

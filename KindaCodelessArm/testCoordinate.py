@@ -15,11 +15,14 @@ Notes:
     shoulder lift and elbow flex, it was reaching far past the object.  Could be some issues with the way we're approaching the triangle.  See trig calculations in main loop for more info.
     - 4/20/26 - Combined testCoordinate.py with the full position function of shoulder_pan_angle.py.  Found that it can be super accurate (usually when the object is near the middle of 
     the camera's view), but the x-coordinate scales very strangely as you move left and right.
+    - 4/22/26 - Organized the disparate scripts from testing into a unified program in engineering_showcase_demo.py.  Tested moving around using the ik, cv, and motor modes and added grab animation.
     
     
-    For next time: Revamp keyboard demo to use a conceptual coordinate and employ the inverse kinematics system from this file to be able to move around.  Possibly keep working on tuning
-    camera control, but it may be hardware restrained or too difficult for the next two weeks.  If we can't figure it out, we can always just demonstrate both the accurate and innaccurate
-    ranges and talking about the struggles we faced during debugging.
+    For next time: 
+        - Possibly think of some edge cases that might need error handling so that the arm doesn't break anything (point limits to not hit camera tower, other joint restrictions, etc.)
+        - Possibly keep working on tuning camera control, but it may be hardware restrained or too difficult for the next two weeks.  
+        If we can't figure it out, we can always just demonstrate both the accurate and innaccurate ranges and talking about the 
+        struggles we faced during debugging.
 """
 
 import cv2
@@ -76,7 +79,7 @@ def getObjects(img, thres, nms, draw=True, objects=[]):
     return img,objectInfo
 
 
-if __name__ == "__main__":
+def main():
     # Tune these for your camera mounting + working distance.
     DEPTH_M = 0.60
     FOV_DEG_X = 110.0
@@ -201,3 +204,5 @@ if __name__ == "__main__":
             arm.cleanup()
             break
     
+if __name__ == "__main__":
+    main()

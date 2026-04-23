@@ -1,4 +1,4 @@
-from utils import arm_interface, so101_forward_kinematics
+import arm_interface, so101_forward_kinematics
 import time
 
 def main():
@@ -9,10 +9,13 @@ def main():
         
         motor_pos = arm.bus.sync_read("Present_Position", motors, normalize=True)
         raw_pos = arm.bus.read("Present_Position", "elbow_flex", normalize=False)
+        #arm.bus.write("Goal_Position", "gripper", arm.bus.read("Present_Position", "gripper"))
+        #gripper_load = arm.bus.read("Present_Load", "gripper")
+        #print(f"Gripper Load: {gripper_load}")
         print(f"Raw elbow flex position: {raw_pos}")
         print(f"Motor positions: {motor_pos}")
-        coord_pos, _ = so101_forward_kinematics.get_forward_kinematics(motor_pos)
-        print(f"Coord: {coord_pos}\n====================")
+        #coord_pos, _ = so101_forward_kinematics.get_forward_kinematics(motor_pos)
+        #print(f"Coord: {coord_pos}\n====================")
         time.sleep(1)
     
     arm.cleanup()
