@@ -44,6 +44,9 @@ def load_calibration(robot_name="KindaCodeless"):
         calibration = draccus.load(dict[str, MotorCalibration], f)
         print(f"Loaded calibration: {calibration}")
         return calibration
+        
+def rad_to_deg(radians):
+        return float(radians) * (180/math.pi)
     
 DEFAULT_MOTORS={
                 "shoulder_pan": Motor(1, "sts3215", MotorNormMode.RANGE_M100_100),
@@ -62,6 +65,15 @@ DEFAULT_MOTORS_DEGREES={
                 "wrist_roll": Motor(5, "sts3215", MotorNormMode.DEGREES),
                 "gripper": Motor(6, "sts3215", MotorNormMode.DEGREES),
             }
+            
+DEFAULT_JOINT_NAMES = {
+            1: "shoulder_pan",
+            2: "shoulder_lift",
+            3: "elbow_flex",
+            4: "wrist_flex",
+            5: "wrist_roll",
+            6: "gripper",
+        }
 
 TRIG_MEASUREMENTS={ # Important measurements for making conceptual triangles with the robot
                 "ground_to_shoulder": 0.125, # Height from the ground to the point of rotation on shoulder_lift motor
@@ -87,14 +99,7 @@ class RobotMotorInterface:
         self.bus = None
         self.name = name
         
-        self.joint_names = {
-            1: "shoulder_pan",
-            2: "shoulder_lift",
-            3: "elbow_flex",
-            4: "wrist_flex",
-            5: "wrist_roll",
-            6: "gripper",
-        }
+        self.joint_names = DEFAULT_JOINT_NAMES
         self.wave_starting_position = {
             self.joint_names[1]: 2175,
             self.joint_names[2]: 1354,
